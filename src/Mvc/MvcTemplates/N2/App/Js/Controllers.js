@@ -703,9 +703,11 @@ function BranchCtrl($scope, $timeout, Content, Translate, SortHelperFactory, Not
 							if (!args.autosaved || isNaN(mi.draft && mi.draft.VersionIndex))
 								return;
 
+							//console.log("discard auto-save ", args, mi, value, oldValue);
+
 							Notify.show({
 								iconClass: "fa fa-thumbs-down",
-								message: Translate("branch.autosave.discardDraft", "An autosaved draft is left behind. Discard it?"),
+								message: Translate("branch.autosave.discardDraft", "An autosaved draft is left behind. Click to discard it."),
 								type: "info",
 								onClick: function () {
 									Content.discard(Content.applySelection({ n2versionIndex: mi.draft.VersionIndex }, node.Current), function (result) {
