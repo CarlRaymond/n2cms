@@ -261,7 +261,7 @@ namespace N2.Management.Api
 			var requestBody = context.GetOrDeserializeRequestStreamJsonDictionary<object>();
 			var discriminator = EditExtensions.GetDiscriminator(context.Request);
 
-			var versions = engine.Resolve<VersionManager>();
+			var versions = engine.Resolve<IVersionManager>();
 			ContentItem item;
 			if (string.IsNullOrEmpty(discriminator))
 			{
@@ -270,7 +270,6 @@ namespace N2.Management.Api
 					item = versions.GetOrCreateDraft(item);
 
 				Update(requestBody, item);
-
 				var page = Find.ClosestPage(item);
 
 				// existing page
@@ -329,7 +328,7 @@ namespace N2.Management.Api
 			context.Response.WriteJson(new
 			{
 				EditUrl = engine.ManagementPaths.GetEditExistingItemUrl(item, context.Request["returnUrl"]),
-				PageID = Find.ClosestPage(item)?.ID,
+				PageID = Find.ClosestPage(item)?.VersionOf?.ID ?? Find.ClosestPage(item)?.ID,
 				ID = item.VersionOf.ID ?? item.ID,
 				VersionIndex = item.VersionIndex,
 				VersionKey = item.GetVersionKey(),
@@ -702,7 +701,7 @@ namespace N2.Management.Api
 			if (context.Request["pages"] != null)
 				query.OnlyPages = Convert.ToBoolean(context.Request["pages"]);
 			if (Selection.SelectedItem.ChildState.IsAny(CollectionState.IsLarge))
-				query.Limit = new Range(0, SyncChildCollectionStateAttribute.LargeCollecetionThreshold);
+				query.Limit = new Range(0, SyncChildCollectionStateAttribute.LargeCollectionThreshold);
 			if (context.Request["skip"] != null)
 				query.Skip(int.Parse(context.Request["skip"]));
 			if (context.Request["take"] != null)
