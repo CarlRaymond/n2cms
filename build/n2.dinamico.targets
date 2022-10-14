@@ -79,7 +79,7 @@
 		<Copy SourceFiles="@(bundlesDinamicoNugetIncludes)" DestinationFolder="$(Bundle-Dinamico-NugetFolder)\%(RecursiveDir)" />
 		<FileUpdate Files="$(Bundle-Dinamico-NugetFolder)\N2.Bundles.Dinamico.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
 
-		<Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Bundle-Dinamico-NugetFolder)\" />
+		<Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Bundle-Dinamico-NugetFolder)\" />
 	</Target>
 
 	<Target Name="Dinamico-Nuget" DependsOnTargets="Dinamico-CreateItemGroups;">
@@ -93,7 +93,7 @@
 		<Copy SourceFiles="@(dinamicoNugetIncludes)" DestinationFolder="$(Dinamico-NugetFolder)\%(RecursiveDir)" />
 		<FileUpdate Files="$(Dinamico-NugetFolder)\N2.Dinamico.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
 
-		<Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Dinamico-NugetFolder)\" />
+		<Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Dinamico-NugetFolder)\" />
 	</Target>
 
 	<Target Name="Dinamico-DemoContent-Nuget" DependsOnTargets="Dinamico-CreateItemGroups;">
@@ -107,7 +107,7 @@
 		<Copy SourceFiles="@(dinamicoDemoContentNugetIncludes)" DestinationFolder="$(DinamicoDemoContent-NugetFolder)\%(RecursiveDir)" />
 		<FileUpdate Files="$(DinamicoDemoContent-NugetFolder)\N2.Dinamico.DemoContent.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
 
-		<Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(DinamicoDemoContent-NugetFolder)\" />
+		<Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(DinamicoDemoContent-NugetFolder)\" />
 	</Target>
 
 	<Target Name="Dinamico-ZipDeploy" DependsOnTargets="Dinamico-Deploy;Dinamico-Zip">

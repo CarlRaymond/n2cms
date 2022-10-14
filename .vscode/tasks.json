@@ -1,0 +1,70 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "msbuild",
+            "args": [
+                "-t:clean",
+                "build/n2.proj"
+            ]
+        },
+        {
+            "label": "restore",
+            "type": "shell",
+            "command": "nuget",
+            "args": [
+                "restore",
+                "src/n2.sources.sln"
+            ]
+        },
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "msbuild",
+            "dependsOn": "restore",
+            "args": [
+                // Ask msbuild to generate full paths for file names.
+                "-property:GenerateFullPaths=true",
+                "-t:build",
+                // Skip warnings about XML documentation
+                "-warnAsMessage:CS1570,CS1572,CS1573,CS0618",
+                // Skip warnings about obsolete methods and never-used events and fields
+                "-warnAsMessage:CS0672,CS0067,CS0169",
+                // Skip warnings about not hiding accessible methods
+                "-warnAsMessage:CS0109",
+                // Do not generate summary otherwise it leads to duplicate errors in Problems panel
+                "-consoleloggerparameters:NoSummary",
+                "-fileLogger",
+                "build/n2.proj"
+            ],
+            "group": "build",
+            "presentation": {
+                // Reveal the output only if unrecognized errors occur.
+                "reveal": "silent"
+            },
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "pack",
+            "type": "shell",
+            "command": "msbuild",
+            "dependsOn": "build",
+            "args": [
+                "-t:Build-NuGet",
+                "build/n2.proj"
+            ],
+            "group": "build",
+            "presentation": {
+                // Reveal the output only if unrecognized errors occur.
+                "reveal": "silent"
+            },
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

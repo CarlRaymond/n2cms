@@ -30,7 +30,7 @@
 	</Target>
 
 	<Target Name="BuildSolutionToArtifactsFolder">
-		<MSBuild Projects="$(SrcFolder)\N2.Sources.sln" Properties="OutDir=$(ArtifactsFolder);Configuration=Deploy"></MSBuild>
+		<MSBuild Projects="$(SrcFolder)\N2.Sources.sln" Targets="restore;build" Properties="RebaseOutputs=true;RestorePackagesConfig=true;OutDir=$(ArtifactsFolder);Configuration=Deploy"></MSBuild>
 	</Target>
 	
 	<Target Name="Framework-CreateItemGroups-EditFiles" DependsOnTargets="BuildSolutionToArtifactsFolder">

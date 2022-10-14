@@ -26,7 +26,10 @@ src/Framework/Search.Remote.Server/App_Data/SearchIndex/
 # User-specific files
 *.suo
 *.user
-/src/.vs
+.vs/
+/Backup
+UpgradeLog.htm
+build.out
 
 # Build results
 Debug/
@@ -58,6 +61,7 @@ DocProject/Help/html
 publish
 
 # Others
+MigrationBackup
 bin
 Bin
 obj

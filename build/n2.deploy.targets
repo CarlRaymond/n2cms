@@ -35,7 +35,7 @@
     </ItemGroup>
     <Copy SourceFiles="@(configNugetIncludes)" DestinationFolder="$(Config-NugetFolder)\%(RecursiveDir)" />
     <FileUpdate Files="$(Config-NugetFolder)\N2.Config.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
-    <Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Config-NugetFolder)\" />
+    <Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Config-NugetFolder)\" />
   </Target>
   
   <Target Name="LocalResources-NuGet">
@@ -45,7 +45,7 @@
     </ItemGroup>
     <Copy SourceFiles="@(LocalResourcesNugetIncludes)" DestinationFolder="$(LocalResources-NugetFolder)\%(RecursiveDir)" />
     <FileUpdate Files="$(LocalResources-NugetFolder)\N2.LocalResources.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
-    <Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(LocalResources-NugetFolder)\" />
+    <Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(LocalResources-NugetFolder)\" />
   </Target>
   
   <Target Name="Framework-Deploy" DependsOnTargets="Framework-CreateItemGroups">
@@ -62,7 +62,7 @@
 
 		<Copy SourceFiles="@(Framework-LocalizedResources)" DestinationFolder="$(Management-LocalizedResourcesFolder)\Content\N2\%(RecursiveDir)" SkipUnchangedFiles="true" UseHardlinksIfPossible="true" />
 		<FileUpdate Files="$(Management-LocalizedResourcesFolder)\N2.Management.LocalizedResources.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
-		<Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Management-LocalizedResourcesFolder)\" />
+		<Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Management-LocalizedResourcesFolder)\" />
 	</Target>
 
 	<Target Name="Library-NuGet" DependsOnTargets="Config-NuGet;Framework-Deploy;LocalResources-NuGet">
@@ -77,7 +77,7 @@
     <Copy SourceFiles="@(libraryNugetIncludes)" DestinationFolder="$(Library-NugetFolder)\%(RecursiveDir)" />
     <FileUpdate Files="$(Library-NugetFolder)\N2.Library.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
 
-    <Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Library-NugetFolder)\" />
+    <Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Library-NugetFolder)\" />
   </Target>
 
 	<Target Name="LuceneSearch-NuGet" DependsOnTargets="Framework-Deploy">
@@ -92,7 +92,7 @@
 		<Copy SourceFiles="@(LuceneSearchNugetIncludes)" DestinationFolder="$(LuceneSearch-NugetFolder)\%(RecursiveDir)" />
 		<FileUpdate Files="$(LuceneSearch-NugetFolder)\N2.Search.Lucene.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
 
-		<Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(LuceneSearch-NugetFolder)\" />
+		<Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(LuceneSearch-NugetFolder)\" />
 	</Target>
 
 	<Target Name="SQLite-NuGet">
@@ -102,7 +102,7 @@
     <Copy SourceFiles="@(sqliteNugetIncludes)" DestinationFolder="$(SQLite-NugetFolder)\%(RecursiveDir)" />
     <FileUpdate Files="$(SQLite-NugetFolder)\N2.SQLite.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
 
-    <Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(SQLite-NugetFolder)\" />
+    <Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(SQLite-NugetFolder)\" />
   </Target>
 
   <Target Name="Windsor3-NuGet">
@@ -114,7 +114,7 @@
     <Copy SourceFiles="@(windsor3NugetIncludes)" DestinationFolder="$(Windsor3-NugetFolder)\%(RecursiveDir)" />
     <FileUpdate Files="$(Windsor3-NugetFolder)\N2.Windsor3.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
 
-    <Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Windsor3-NugetFolder)\" />
+    <Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Windsor3-NugetFolder)\" />
   </Target>
 
   <Target Name="MongoDB-NuGet">
@@ -126,7 +126,7 @@
     <Copy SourceFiles="@(mongoDBNugetIncludes)" DestinationFolder="$(MongoDB-NugetFolder)\%(RecursiveDir)" />
     <FileUpdate Files="$(MongoDB-NugetFolder)\N2.Persistence.MongoDB.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
 
-    <Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(MongoDB-NugetFolder)\" />
+    <Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(MongoDB-NugetFolder)\" />
   </Target>
 
   <Target Name="RemoteSearch-NuGet">
@@ -147,7 +147,7 @@
     <Copy SourceFiles="@(remoteSearchNugetServer)" DestinationFolder="$(RemoteSearch-NugetFolder)\Content\RemoteSearchServer" />
     <FileUpdate Files="$(RemoteSearch-NugetFolder)\N2.Search.Remote.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
 
-    <Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(RemoteSearch-NugetFolder)\" />
+    <Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(RemoteSearch-NugetFolder)\" />
   </Target>
 
 	<Target Name="Razor-NuGet">
@@ -159,7 +159,7 @@
 		<Copy SourceFiles="@(nugetRazorBinFiles)" DestinationFolder="$(Razor-NugetFolder)\lib\%(nugetFxTargets.Identity)\" />
 		<FileUpdate Files="$(Razor-NugetFolder)\N2.Razor.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
 
-		<Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Razor-NugetFolder)\" />
+		<Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Razor-NugetFolder)\" />
 	</Target>
 
 	<Target Name="Mvc-NuGet">
@@ -169,7 +169,7 @@
 		<Copy SourceFiles="@(mvcNugetIncludes)" DestinationFolder="$(Mvc-NugetFolder)\%(RecursiveDir)" />
 		<FileUpdate Files="$(Mvc-NugetFolder)\N2.Mvc.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
 
-		<Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Mvc-NugetFolder)\" />
+		<Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Mvc-NugetFolder)\" />
 	</Target>
 
 	<Target Name="ReusableParts-NuGet">
@@ -181,7 +181,7 @@
     <Copy SourceFiles="@(nugetReusablePartsBinFiles)" DestinationFolder="$(ReusableParts-NugetFolder)\lib\%(nugetFxTargets.Identity)\" />
     <FileUpdate Files="$(ReusableParts-NugetFolder)\N2.ReusableParts.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
 
-    <Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(ReusableParts-NugetFolder)\" />
+    <Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(ReusableParts-NugetFolder)\" />
   </Target>
 
   <!--common ItemGroups for the next 2 targets-->
@@ -213,7 +213,7 @@
     </ItemGroup>
     <Copy SourceFiles="@(managementNugetIncludesZ)" DestinationFolder="$(Management-NugetFolderZip)\%(RecursiveDir)" />
     <FileUpdate Files="$(Management-NugetFolderZip)\N2.Management.Zip.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
-    <Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Management-NugetFolderZip)\" />
+    <Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Management-NugetFolderZip)\" />
   </Target>
 
   <Target Name="Management-NoZip-NuGet" DependsOnTargets="Management-NuGet-ItemGroups" Condition="'@(NoZipFrameworkDeployFiles)' != ''">
@@ -226,7 +226,7 @@
     </ItemGroup>
     <Copy SourceFiles="@(managementNugetIncludesN)" DestinationFolder="$(Management-NugetFolderNoZip)\%(RecursiveDir)" />
     <FileUpdate Files="$(Management-NugetFolderNoZip)\N2.Management.NoZip.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
-    <Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Management-NugetFolderNoZip)\" />
+    <Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Management-NugetFolderNoZip)\" />
   </Target>
 
 	<Target Name="Management-Targeting-NuGet">
@@ -241,7 +241,7 @@
 		<Copy SourceFiles="@(managementTargetingDeployFiles)" DestinationFolder="$(Management-Targeting-NugetFolder)\content\N2\Targeting\%(RecursiveDir)" UseHardlinksIfPossible="true" SkipUnchangedFiles="true" />
 
 		<FileUpdate Files="$(Management-Targeting-NugetFolder)\N2.Management.Targeting.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
-		<Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Management-Targeting-NugetFolder)\" />
+		<Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Management-Targeting-NugetFolder)\" />
 	</Target>
 
 	<Target Name="Management-Collaboration-NuGet">
@@ -256,7 +256,7 @@
 		<Copy SourceFiles="@(managementCollaborationDeployFiles)" DestinationFolder="$(Management-Collaboration-NugetFolder)\content\N2\Collaboration\%(RecursiveDir)" UseHardlinksIfPossible="true" SkipUnchangedFiles="true" />
 
 		<FileUpdate Files="$(Management-Collaboration-NugetFolder)\N2.Management.Collaboration.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
-		<Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Management-Collaboration-NugetFolder)\" />
+		<Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Management-Collaboration-NugetFolder)\" />
 	</Target>
 
 	<Target Name="Management-Statistics-NuGet">
@@ -271,7 +271,7 @@
 		<Copy SourceFiles="@(managementStatisticsDeployFiles)" DestinationFolder="$(Management-Statistics-NugetFolder)\content\N2\Statistics\%(RecursiveDir)" UseHardlinksIfPossible="true" SkipUnchangedFiles="true" />
 
 		<FileUpdate Files="$(Management-Statistics-NugetFolder)\N2.Management.Statistics.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
-		<Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Management-Statistics-NugetFolder)\" />
+		<Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Management-Statistics-NugetFolder)\" />
 	</Target>
 
 	<Target Name="Framework-NuGet" DependsOnTargets="Management-Zip-NuGet;Management-NoZip-NuGet">
@@ -282,7 +282,7 @@
     <Copy SourceFiles="@(frameworkNugetIncludes)" DestinationFolder="$(Framework-NugetFolder)\%(RecursiveDir)" />
     <FileUpdate Files="$(Framework-NugetFolder)\N2.Cms.nuspec" Regex="{Version}" ReplacementText="$(Version)" />
     <Copy SourceFiles="@(TextFiles)" DestinationFolder="$(Framework-NugetFolder)\Content\N2\" />
-    <Exec Command="$(BuildFolder)\lib\NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Framework-NugetFolder)\" />
+    <Exec Command="NuGet.exe pack -OutputDirectory .." WorkingDirectory="$(Framework-NugetFolder)\" />
   </Target>
 
   <Target Name="Framework-ZipDeploy" DependsOnTargets="Framework-Deploy;Framework-Zip" />
@@ -368,16 +368,16 @@
     <ItemGroup>
       <nugetPackages Include="$(DeployFolder)\*.$(Version).nupkg" />
     </ItemGroup>
-    <!--<Message Text="$(BuildFolder)\lib\NuGet.exe Push %(nugetPackages.Identity)" />-->
+    <!--<Message Text="NuGet.exe Push %(nugetPackages.Identity)" />-->
 		<Exec Command="$(BuildFolder)\lib\git.exe tag $(Version)" ContinueOnError="true" />
-    <Exec Command="$(BuildFolder)\lib\NuGet.exe Push %(nugetPackages.Identity)" ContinueOnError="true" />
+    <Exec Command="NuGet.exe Push %(nugetPackages.Identity)" ContinueOnError="true" />
   </Target>
 
 	<Target Name="Push-NuGet-Config" DependsOnTargets="Build-NuGet">
 		<ItemGroup>
 			<nugetConfigPackages Include="$(DeployFolder)\N2CMS.Config.*.nupkg" />
 		</ItemGroup>
-		<!--<Message Text="$(BuildFolder)\lib\NuGet.exe Push %(nugetConfigPackages.Identity)" />-->
-		<Exec Command="$(BuildFolder)\lib\NuGet.exe Push %(nugetConfigPackages.Identity)" ContinueOnError="true" />
+		<!--<Message Text="NuGet.exe Push %(nugetConfigPackages.Identity)" />-->
+		<Exec Command="NuGet.exe Push %(nugetConfigPackages.Identity)" ContinueOnError="true" />
 	</Target>
 </Project>
