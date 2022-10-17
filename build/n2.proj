@@ -38,36 +38,7 @@
 		<RestorePackagesConfig>true</RestorePackagesConfig>
 	</PropertyGroup>
 
-	<!-- Inline code to replace MSBuild.Community.Tasks FileUpdate task -->
-	<UsingTask
-    	TaskName="FileUpdate"
-    	TaskFactory="RoslynCodeTaskFactory"
-    	AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
-    	<ParameterGroup>
-			<Files ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
-			<Regex ParameterType="System.String" Required="true" />
-			<ReplacementText ParameterType="System.String" Required="true" />
-		</ParameterGroup>
-		<Task>
-			<Using Namespace="System"/>
-			<Using Namespace="System.IO"/>
-			<Using Namespace="System.Text.RegularExpressions" />
-			<Code Type="Fragment" Language="cs">
-				<![CDATA[
-				if (Files.Length > 0)
-				{
-					for (int i=0; i < Files.Length; i++)
-					{
-						ITaskItem item = Files[i];
-						string path = item.GetMetadata("FullPath");
-						File.WriteAllText(path, System.Text.RegularExpressions.Regex.Replace(File.ReadAllText(path), Regex, ReplacementText, RegexOptions.IgnoreCase));
-					}
-				}
-				]]>
-			</Code>
-		</Task>
-	</UsingTask>
-
+	<Import Project="FileUpdate.tasks" />
 	<Import Project="n2.framework.targets"/>
 	<Import Project="n2.templates.webforms.targets"/>
 	<Import Project="n2.templates.mvc.targets"/>
