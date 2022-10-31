@@ -10,7 +10,8 @@
             "args": [
                 "-t:clean",
                 "build/n2.proj"
-            ]
+            ],
+            "problemMatcher": "$msCompile"
         },
         {
             "label": "restore",
@@ -48,6 +49,25 @@
             },
             // Use the standard MS compiler pattern to detect errors, warnings and infos
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "test",
+            "type": "shell",
+            "command": "msbuild",
+            "dependsOn": "build",
+            "args": [
+                "-t:Test",
+                // Skip warnings about XML documentation
+                "-warnAsMessage:CS1570,CS1572,CS1573,CS0618",
+                // Skip warnings about obsolete methods and never-used events and fields
+                "-warnAsMessage:CS0672,CS0067,CS0169",
+                // Skip warnings about not hiding accessible methods
+                "-warnAsMessage:CS0109",
+                // Do not generate summary otherwise it leads to duplicate errors in Problems panel
+                "-consoleloggerparameters:NoSummary",
+                "-fileLogger",
+                "build/n2.proj"
+            ]
         },
         {
             "label": "pack",
