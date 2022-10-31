@@ -4,22 +4,60 @@ The N2CMS project seems to have stopped some time around late 2017, with a singl
 The latest version available on NuGet is 2.9.6.19, but there are some bug fixes in the repository after
 that date. In particular, my motivation is a fix for [#776](https://github.com/n2cms/n2cms/issues/776),
 concerning CKEditor configuration within the <n2> section of web.config. This fix has not been
-distributed through NuGet
+distributed through a published package on NuGet.
 
 The build process for N2 is somewhat opaque, and it was made for the tooling available with Visual Studio 2017.
 Since then there are new versions of the .Net Framework, NuGet, and MSBuild. In places it relies on obsolete
-MSBuild tasks, and uses an obsolete version of NuGet.
+MSBuild tasks, and uses an obsolete version of NuGet. There are several batch files that seem relevant to
+building and packaging the source, but it's not clear if they're still the current method of building, or
+are just vestiges of olden days.
 
-This is an attepmt to produce working packages from the source using the tooling current with Visual Studio 2022,
-while making minimal changes to the codebase.
+The goal is to produce working packages from the source using the tooling current with Visual Studio 2022,
+namely MSBuild, while making minimal changes to the codebase.
 
-Many of these changes are more easily done with VS Code instead of Visual Studio.
+Many of these changes are more easily done with VS Code instead of Visual Studio, but for some tasks,
+Visual Studio is preferred.
 
-## Fix Project References in Solution Files
+
+
+## Solution Files and MSBuild Files
+
+There are multiple solution, targets, and build files in the codebase:
+
+`\N2.Everything.sln`
+: Mentioned in Readme.MD as the entrypoint to exploring the source. Referenced in `n2.deploy.targets`, `n2.proj`
+
+`\src\N2.Sources.sln`
+: Referenced in `n2.framework.targets`, `n2.sources.targets`, `n2.proj`
+
+`\src\N2.SourcesCI.sln`
+: Not referenced by any MSBuild files, and not mentioned in documentation.
+
+`\build\deploy\WebFormTemplates\N2.Templates.sln`
+: Referenced in `N2.Templates.sln`
+
+`\build\deploy\WebFormTemplates\N2.Templates-vs2008.sln`
+: Obsolete version of above.
+
+`\build\deploy\MvcTemplates\N2.Templates.Mvc.sln`
+: Referenced in `N2.Templates.sln`
+
+`\build\deploy\MvcTemplates\N2.Templates.Mvc-vs2008.sln`
+: Obsolete version of above.
+
+`\src\N2.AspNet.IdentitySources.sln`
+: Aspnet.Identity/Owin account subsystem for N2 CMS, described in `src\Framework\N2.Security.AspNet.Identity\NamespaceDoc.cs`
+
+`\build\n2.proj`
+: This is the principal build script to produce the NuGet packages.
+
+`build\n2.
+
+
 
 ### Remove Obsolete / Unfinished Projects
 
-The files `N2.Everything.sln` and `N2.Sources.sln` reference the project `N2.Raven`, which does not compile,
+The files `N2.Everything.sln` and `N2.Sources.sln` reference the project `N2.Raven.csproj`, which does not compile,
 and does not seem to be included in any current NuGet package. It prevents the build script from finishing.
 `N2.Everything.sln` also references non-existent projects `AppCS.csproj`, `AppVB.vbproj` and `MvcTest.csproj`.
 
@@ -131,3 +169,8 @@ Remove the import of MSBuild.Community.Tasks and add the FileUpdate task with so
 ### Framework/N2:
 
 Remove `using NHibernate.Mapping` in Collections\CollectionExtensions.cs and Configuration\DatabaseSection
+
+## Unit Testing
+
+On exploring the test projects using NUnit, there are many failing tests. It doesn't seem productive to
+clean that up.
