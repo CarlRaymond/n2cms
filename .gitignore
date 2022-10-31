@@ -29,7 +29,7 @@ src/Framework/Search.Remote.Server/App_Data/SearchIndex/
 .vs/
 /Backup
 UpgradeLog.htm
-build.out
+*.out
 
 # Build results
 Debug/
