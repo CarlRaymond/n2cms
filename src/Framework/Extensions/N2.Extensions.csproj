@@ -93,8 +93,12 @@
     <Compile Include="Web\Mvc\Html\TagBuilderExtensions.cs" />
     <Compile Include="Web\Mvc\MvcAdapter.cs" />
     <Compile Include="Web\Mvc\NonContentConstraint.cs" />
-    <Compile Include="Web\Mvc\ContentViewPage.cs" />
-    <Compile Include="Web\Mvc\ContentViewUserControl.cs" />
+    <Compile Include="Web\Mvc\ContentViewPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web\Mvc\ContentViewUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Web\Mvc\ControllerExtensions.cs" />
     <Compile Include="Web\Mvc\Html\ContextExtensions.cs" />
     <Compile Include="Web\Mvc\Html\DetailExtensions.cs" />
