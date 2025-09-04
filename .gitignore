@@ -90,3 +90,8 @@ src/Framework/Extensions/x86/
 .DS_Store
 *.jpg
 *.pdf
+FileContentIndex/
+CopilotIndices/
+
+MigrationBackup/
+filelist.bin
